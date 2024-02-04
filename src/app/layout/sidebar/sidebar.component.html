@@ -1,0 +1,5 @@
+<aside class="bg-primary">
+  @if(categories$ | async; as categories) {
+  <app-menu-item [categories]="categories.data"></app-menu-item>
+  }
+</aside>

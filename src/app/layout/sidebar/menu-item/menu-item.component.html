@@ -1,0 +1,27 @@
+<ul class="nav-menu">
+  <!-- looping through category -->
+  @for (category of categories; track category.id) {
+  <!-- conditionally use dropdown if the categeory has sub categories -->
+  @if (category.subCategories.length) {
+  <li class="menu-item" dropdown #dropdown="bs-dropdown">
+    <button
+      dropdownToggle
+      aria-controls="dropdown-animated"
+      class="dropdown-toggle"
+    >
+      {{ category.categoryName | titlecase }}
+    </button>
+    <app-menu-item
+      [categories]="category.subCategories"
+      id="dropdown-animated"
+      *dropdownMenu
+    ></app-menu-item>
+  </li>
+  } @else {
+  <li class="menu-item">
+    <a [routerLink]="'category/' + category.id">{{
+      category.categoryName | titlecase
+    }}</a>
+  </li>
+  } }
+</ul>
