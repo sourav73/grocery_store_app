@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PagesComponent } from './pages/pages.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,21 @@ export const routes: Routes = [
         path: 'home',
         title: 'Home',
         component: HomeComponent,
+      },
+      {
+        path: 'category',
+        title: 'Products',
+        children: [
+          {
+            path: '',
+            redirectTo: ':categoryId/products',
+            pathMatch: 'full',
+          },
+          {
+            path: ':categoryId/products',
+            component: ProductsComponent,
+          },
+        ],
       },
     ],
   },

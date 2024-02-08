@@ -19,7 +19,7 @@
   </li>
   } @else {
   <li class="menu-item">
-    <a [routerLink]="'category/' + category.id">{{
+    <a [routerLink]="'category/' + category.id + '/products'">{{
       category.categoryName | titlecase
     }}</a>
   </li>
