@@ -22,10 +22,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngUnsubscribe$ = new Subject<void>();
   products: Product[] = [];
 
-  @Input() categoryId = ''; // binding to route param, this categoryId will be have the value of route param categoryId value
-
   ngOnInit(): void {
-    this.getProducts(+this.categoryId);
+    this.route.params.subscribe((r) => {
+      this.getProducts(r['categoryId']);
+    });
   }
   constructor() {}
 
