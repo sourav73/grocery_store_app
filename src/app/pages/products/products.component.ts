@@ -5,11 +5,12 @@ import { Product } from './product-type';
 import { ProductService } from './product.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
+import { ProductItemCardComponent } from './product-item-card/product-item-card.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [],
+  imports: [ProductItemCardComponent],
   providers: [BsModalService],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',

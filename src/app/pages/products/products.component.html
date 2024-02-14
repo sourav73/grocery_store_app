@@ -1,1 +1,10 @@
 <p>products works!</p>
+<div class="container">
+    <div class="row">
+        @for (product of products; track product.id) {
+            <div class="col">
+                <app-product-item-card></app-product-item-card>
+            </div>
+        }
+    </div>
+</div>

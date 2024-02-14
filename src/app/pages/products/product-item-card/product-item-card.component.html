@@ -1,1 +1,40 @@
-<p>product-item-card works!</p>
+<div class="card border-0 mb-5 shadow-lg _offer">
+  <span
+    class="_offerRibbon py-1 px-4 _bgPink text-white text-uppercase position-absolute"
+  >
+    Offer
+  </span>
+  <img
+    src="https://c1.staticflickr.com/5/4120/34825510153_98ee710398_b.jpg"
+    alt=""
+    class="card-img-top border-bottom"
+  />
+  <div class="card-body position-relative">
+    <div class="d-flex justify-content-between">
+      <h4 class="card-title text-truncate font-weight-bold">Macbook Pro</h4>
+      <label class="_addtoFav">
+        <input type="checkbox" name="favourite" class="d-none" />
+        <i class="material-icons active d-none _textPink"> favorite </i>
+        <i class="material-icons inactive _textPink"> favorite_border </i>
+      </label>
+    </div>
+
+    <div class="card-subtitle text-muted text-truncate my-2">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus
+      porro, dolorum dolore
+    </div>
+    <div class="card-text d-flex justify-content-between mt-5 mb-3">
+      <span>Free Shipping</span>
+      <span class="_priceSection position-relative">
+        <div class="_now h5 _textPink font-weight-bolder">$2,699</div>
+        <del class="_before h6 position-absolute text-black-50">$2799</del>
+      </span>
+    </div>
+    <button
+      class="btn p-3 _cartBtn rounded-0 _bgPink text-white text-uppercase d-inline-flex align-items-center position-absolute"
+    >
+      <span>Add to cart</span>
+      <i class="material-icons ml-2 font-weight-light"> add_shopping_cart </i>
+    </button>
+  </div>
+</div>
