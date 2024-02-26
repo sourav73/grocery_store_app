@@ -3,11 +3,12 @@ import { CategorySidebar } from '../types';
 import { RouterLink } from '@angular/router';
 import { TitleCasePipe } from '@angular/common';
 import { BsDropdownConfig, BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @Component({
   selector: 'app-menu-item',
   standalone: true,
-  imports: [RouterLink, TitleCasePipe, BsDropdownModule],
+  imports: [RouterLink, TitleCasePipe, BsDropdownModule, AccordionModule],
   providers: [
     {
       provide: BsDropdownConfig,

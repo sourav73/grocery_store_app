@@ -1,40 +1,73 @@
-<div class="card border-0 mb-5 shadow-lg _offer">
-  <span
-    class="_offerRibbon py-1 px-4 _bgPink text-white text-uppercase position-absolute"
-  >
-    Offer
-  </span>
-  <img
-    src="https://c1.staticflickr.com/5/4120/34825510153_98ee710398_b.jpg"
-    alt=""
-    class="card-img-top border-bottom"
-  />
-  <div class="card-body position-relative">
-    <div class="d-flex justify-content-between">
-      <h4 class="card-title text-truncate font-weight-bold">Macbook Pro</h4>
-      <label class="_addtoFav">
-        <input type="checkbox" name="favourite" class="d-none" />
-        <i class="material-icons active d-none _textPink"> favorite </i>
-        <i class="material-icons inactive _textPink"> favorite_border </i>
-      </label>
+<div class="card border-0 shadow-lg _offer h-100">
+  <div class="card-heading">
+    <img
+      #productImage
+      [src]="product.imagePath"
+      [alt]="product.name"
+      (error)="productImage.src = 'assets/images/no-image.jpg'"
+      class="card-img-top border-bottom"
+    />
+    <div class="d-flex justify-content-between px-3 pt-3">
+      <h4 class="card-title text-truncate font-weight-bold">
+        {{ product.name }}
+      </h4>
     </div>
 
-    <div class="card-subtitle text-muted text-truncate my-2">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus
-      porro, dolorum dolore
+    <div class="card-subtitle text-muted text-truncate my-2 px-3">
+      {{ product.description }}
     </div>
-    <div class="card-text d-flex justify-content-between mt-5 mb-3">
-      <span>Free Shipping</span>
+  </div>
+  <div class="card-body position-relative">
+    <div
+      class="card-text d-flex justify-content-between align-items-center mt-4"
+    >
+      <div class="input-group w-50">
+        <button
+          class="btn btn-secondary"
+          type="button"
+          (click)="decreaseQuantity()"
+        >
+          -
+        </button>
+        <input
+          type="number"
+          class="form-control text-center"
+          placeholder="1"
+          min="1"
+          [(ngModel)]="quantity"
+        />
+        <button
+          class="btn btn-secondary"
+          type="button"
+          (click)="increaseQuantity()"
+        >
+          +
+        </button>
+      </div>
       <span class="_priceSection position-relative">
-        <div class="_now h5 _textPink font-weight-bolder">$2,699</div>
-        <del class="_before h6 position-absolute text-black-50">$2799</del>
+        @if (product.discount) {
+        <div class="_now h5 _textPink font-weight-bolder">
+          {{ product.price | number : "1.2-2" }} TK
+        </div>
+        <del class="_before h6 position-absolute text-black-50"
+          >{{ product.price / product.discount | number : "1.2-2" }} TK</del
+        >
+        } @else {
+        <div>{{ product.price | number : "1.2-2" }} TK</div>
+        }
       </span>
     </div>
-    <button
-      class="btn p-3 _cartBtn rounded-0 _bgPink text-white text-uppercase d-inline-flex align-items-center position-absolute"
-    >
-      <span>Add to cart</span>
-      <i class="material-icons ml-2 font-weight-light"> add_shopping_cart </i>
-    </button>
+    <div class="cart-btn-group mt-3">
+      <button
+        class="btn btn-primary p-3 text-white text-uppercase d-block w-100 text-center"
+      >
+        Add to cart
+      </button>
+      <button
+        class="btn btn-danger p-3 text-white text-uppercase d-block w-100 text-center mt-3"
+      >
+        Remove From Cart
+      </button>
+    </div>
   </div>
 </div>
