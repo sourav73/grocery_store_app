@@ -4,6 +4,10 @@
       <p class="text-white fw-bold brand">Grocery Store</p>
     </div>
     <div class="button-group">
+      <button class="btn cart-btn position-relative">
+        <img src="assets/icons/cart.svg" alt="Cart">
+        <span class="cart-badge">{{ totalProduct() || 0 }}</span>
+      </button>
       <button class="btn btn-primary">Login</button>
       <button class="btn btn-success ms-3" (click)="openAuthModal()">Register</button>
     </div>

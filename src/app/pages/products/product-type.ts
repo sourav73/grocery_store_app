@@ -6,4 +6,10 @@ export interface Product {
   price: number;
   weight: number;
   discount: number;
+  quantity: number;
+}
+
+export interface GroupedProducts {
+  categoryName: string;
+  products: Product[];
 }

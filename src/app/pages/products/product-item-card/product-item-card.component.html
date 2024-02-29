@@ -34,7 +34,7 @@
           class="form-control text-center"
           placeholder="1"
           min="1"
-          [(ngModel)]="quantity"
+          [(ngModel)]="product.quantity"
         />
         <button
           class="btn btn-secondary"
@@ -60,6 +60,7 @@
     <div class="cart-btn-group mt-3">
       <button
         class="btn btn-primary p-3 text-white text-uppercase d-block w-100 text-center"
+        (click)="addToCart()"
       >
         Add to cart
       </button>

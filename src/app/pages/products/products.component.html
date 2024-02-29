@@ -1,6 +1,7 @@
-<div class="container my-2">
+<h1 class="text-center category-heading">{{ products.categoryName }}</h1>
+<div class="container-fluid my-2">
   <div class="row row-cols-xs-1 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 g-3">
-    @for (product of products; track product.id) {
+    @for (product of products.products; track product.id) {
     <div class="col">
       <app-product-item-card [product]="product"></app-product-item-card>
     </div>
