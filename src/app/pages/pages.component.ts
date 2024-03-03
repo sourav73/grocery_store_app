@@ -4,6 +4,7 @@ import { SidebarComponent } from '../layout/sidebar/sidebar.component';
 import { FooterComponent } from '../layout/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CartComponent } from '../shared/components/cart/cart.component';
 
 @Component({
   selector: 'app-pages',
@@ -12,6 +13,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
+    CartComponent,
     RouterOutlet,
     NgxSpinnerModule,
   ],

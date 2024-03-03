@@ -64,11 +64,14 @@
       >
         Add to cart
       </button>
+      @if (isInCart) {
       <button
         class="btn btn-danger p-3 text-white text-uppercase d-block w-100 text-center mt-3"
+        (click)="removeFromCart()"
       >
         Remove From Cart
       </button>
+      }
     </div>
   </div>
 </div>
