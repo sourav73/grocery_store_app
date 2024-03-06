@@ -6,6 +6,7 @@ import { Product } from '../../../pages/products/product-type';
   providedIn: 'root',
 })
 export class CartService {
+  isCartOpened = signal<boolean>(false);
   totalProducts = signal<number>(0);
   totalPrice = signal<number>(0);
   products = signal<Product[]>([]);

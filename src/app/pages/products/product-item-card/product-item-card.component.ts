@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, computed, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Product } from '../product-type';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -31,8 +31,8 @@ export class ProductItemCardComponent implements OnInit {
   }
 
   addToCart() {
-    this.cartService.addItemToCart(this.product);
-    this.isInCart = true
+    this.cartService.addItemToCart({...this.product});
+    this.isInCart = true;
   }
 
   removeFromCart() {

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { LoginSignupModalComponent } from '../../common/components/login-signup-modal/login-signup-modal.component';
 import { Router } from '@angular/router';
@@ -27,5 +27,9 @@ export class HeaderComponent {
     modalRef.content?.saveSuccess.subscribe(() => {
       this.router.navigate(['/']);
     });
+  }
+
+  openCart() {
+    this.cartService.isCartOpened.set(true);
   }
 }

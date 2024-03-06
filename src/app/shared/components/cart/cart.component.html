@@ -1,3 +1,79 @@
-<div class="cart">
-  <p>Products</p>
+<div class="cart" [class.open]="isCartOpened()">
+  <p class="mb-3 p-3 d-flex justify-content-between align-items-center">
+    <span>Your cart</span>
+    <button
+      class="btn btn-danger"
+      (click)="cartService.isCartOpened.set(false)"
+    >
+      X
+    </button>
+  </p>
+
+  <p class="mb-3 ps-3">Products</p>
+  <div class="products p-3">
+    @for (product of cart().products; track product.id) {
+    <div class="product-card d-flex gap-2">
+      <div class="product-image">
+        <img
+          #productImage
+          [src]="product.imagePath"
+          [alt]="product.name"
+          (error)="productImage.src = 'assets/images/no-image.jpg'"
+          width="60"
+          height="80"
+        />
+      </div>
+      <div class="product-info">
+        <div class="description">
+          <div class="title">
+            <p>{{ product.name }}</p>
+          </div>
+          <button
+            class="btn text-danger p-0"
+            (click)="removeProduct(product.id)"
+          >
+            x
+          </button>
+        </div>
+        <div class="product-price">
+          <div class="input-group w-50">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              (click)="decrementProductQuantity(product)"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              class="form-control text-center"
+              placeholder="1"
+              min="1"
+              [(ngModel)]="product.quantity"
+            />
+            <button
+              class="btn btn-secondary"
+              type="button"
+              (click)="incrementProductQuantity(product)"
+            >
+              +
+            </button>
+          </div>
+          <p>{{ product.quantity * product.price }}Tk</p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  @if (!cart().products.length) {
+  <button class="btn btn-primary text-center w-50 d-block mt-4 m-auto" disabled>
+    Checkout
+  </button>
+  } @else {
+  <a
+    class="btn btn-primary text-center w-50 d-block mt-4 m-auto"
+    routerLink="/checkout"
+    >Checkout</a
+  >
+  }
 </div>

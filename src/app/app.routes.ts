@@ -3,6 +3,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { HomeComponent } from './pages/home/home.component';
 import { PagesComponent } from './pages/pages.component';
 import { ProductsComponent } from './pages/products/products.component';
+import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
         ],
       },
     ],
+  },
+  {
+    path: 'checkout',
+    component: CheckoutPageComponent
   },
   {
     path: '**',
