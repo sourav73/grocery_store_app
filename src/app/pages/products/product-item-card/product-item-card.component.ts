@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, computed, inject } from '@angular/core';
 import { Product } from '../product-type';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,10 +14,9 @@ import { CartService } from '../../../shared/services/cart/cart.service';
 export class ProductItemCardComponent implements OnInit {
   cartService = inject(CartService);
   @Input() product: Product = {} as Product;
-  isInCart!: boolean;
+  isInCart = computed(() => this.cartService.cart().products.findIndex(p => p.id === this.product.id) > -1 ? true : false);
   ngOnInit(): void {
     this.product.quantity = 1;
-    this.isInCart = this.cartService.cart().products.findIndex(p => p.id === this.product.id) > -1 ? true : false;
   }
 
   increaseQuantity() {
@@ -32,11 +31,11 @@ export class ProductItemCardComponent implements OnInit {
 
   addToCart() {
     this.cartService.addItemToCart({...this.product});
-    this.isInCart = true;
+    // this.isInCart = true;
   }
 
   removeFromCart() {
-    this.isInCart = false;
+    // this.isInCart = false;
     this.cartService.removeItemFromCart(this.product.id);
   }
 }
