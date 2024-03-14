@@ -44,18 +44,18 @@
           +
         </button>
       </div>
-      <span class="_priceSection position-relative">
+      <div class="position-relative">
         @if (product.discount) {
-        <div class="_now h5 _textPink font-weight-bolder">
-          {{ product.price | number : "1.2-2" }} TK
+        <div class="h5 font-weight-bolder">
+          {{ product.discountedPrice| number : "1.2-2" }} TK
         </div>
-        <del class="_before h6 position-absolute text-black-50"
-          >{{ product.price / product.discount | number : "1.2-2" }} TK</del
+        <del class="h6 text-black-50"
+          >{{ product.price | number : "1.2-2" }} TK</del
         >
         } @else {
-        <div>{{ product.price | number : "1.2-2" }} TK</div>
+        <div class="h5 font-weight-bolder mb-0">{{ product.price | number : "1.2-2" }} TK</div>
         }
-      </span>
+      </div>
     </div>
     <div class="cart-btn-group mt-3">
       <button

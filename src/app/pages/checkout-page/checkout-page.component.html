@@ -1,3 +1,88 @@
 <div class="container">
-    <h1 class="text-center text-decoration-underline fs-1 my-3">Checkout</h1>
+  <h1 class="text-center text-decoration-underline fs-1 my-3">Checkout</h1>
+
+  <div class="cart-summary d-flex gap-3">
+    <div class="products h5">
+      <p class="mb-3">Your Cart details</p>
+      <div class="product-header">
+        <div class="item">Item</div>
+        <div class="unit-price">Unit Price</div>
+        <div class="quantity">Quantity</div>
+        <div class="final-price">Final Price</div>
+        <div class="action">Action</div>
+      </div>
+      @for (product of cart().products; track product.id) {
+      <div class="product-card">
+        <div class="item">
+          <img
+            #productImage
+            [src]="product.imagePath"
+            [alt]="product.name"
+            (error)="productImage.src = 'assets/images/no-image.jpg'"
+            height="80"
+            width="80"
+          />
+          <p>{{ product.name }}</p>
+        </div>
+        <div class="unit-price">
+          @if (product.discount) {
+          <div class="prices">
+            <p>
+              {{ product.discountedPrice | number : "1.2-2" }}
+              TK
+            </p>
+            <del>{{ product.price | number : "1.2-2" }} TK</del>
+          </div>
+          } @else {
+          <p>{{ product.price }} Tk</p>
+          }
+        </div>
+        <div class="quantity">
+          <div class="input-group w-50">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              (click)="decrementProductQuantity(product)"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              class="form-control text-center p-0"
+              placeholder="1"
+              min="1"
+              [(ngModel)]="product.quantity"
+            />
+            <button
+              class="btn btn-secondary"
+              type="button"
+              (click)="incrementProductQuantity(product)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div class="final-price">
+          @if (product.discount) {
+          <p>
+            {{ product.quantity * product.discountedPrice | number : "1.2-2" }}
+            TK
+          </p>
+          <del>{{ product.quantity * product.price | number : "1.2-2" }} TK</del
+          >} @else {
+          <p>{{ product.quantity * product.price }} Tk</p>
+          }
+        </div>
+        <div class="action">
+          <button class="btn btn-danger" (click)="removeProduct(product.id)">
+            X
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="order-summary p-3 mt-3 bg-secondary-subtle">
+      <h5 class="h5">Summary</h5>
+    </div>
+  </div>
 </div>

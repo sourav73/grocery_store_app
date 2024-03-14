@@ -12,7 +12,7 @@
   <p class="mb-3 ps-3">Products</p>
   <div class="products p-3">
     @for (product of cart().products; track product.id) {
-    <div class="product-card d-flex gap-2">
+    <div class="product-card d-flex gap-2 mb-3">
       <div class="product-image">
         <img
           #productImage
@@ -59,7 +59,12 @@
               +
             </button>
           </div>
-          <p>{{ product.quantity * product.price }}Tk</p>
+
+          @if (product.discount) {
+            <p>{{ (product.quantity * product.discountedPrice) }}Tk</p>
+          } @else {
+            <p>{{ product.quantity * product.price }}Tk</p>
+          }
         </div>
       </div>
     </div>

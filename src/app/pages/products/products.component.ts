@@ -35,6 +35,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productService.getSingleCategoryProducts(categoryId).subscribe((res) => {
       if (res.data.categoryName) {
         this.products = res.data;
+        // calculate and add discounted price to each product
+        this.products.products.forEach(product => {
+          if(product.discount) {
+            product.discountedPrice = product.price - product.price * (product.discount / 100);
+          }
+        });
       }
     });
   }
