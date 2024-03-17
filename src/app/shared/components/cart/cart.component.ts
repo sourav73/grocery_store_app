@@ -3,11 +3,12 @@ import { CartService } from '../../services/cart/cart.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Product } from '../../../pages/products/product-type';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, DecimalPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })

@@ -61,7 +61,12 @@
           </div>
 
           @if (product.discount) {
-            <p>{{ (product.quantity * product.discountedPrice) }}Tk</p>
+            <div class="prices">
+              <p>{{ (product.quantity * product.discountedPrice) }}Tk</p>
+              <del class="h6 text-black-50"
+                >{{ product.quantity * product.price | number : "1.2-2" }} TK</del
+              >
+            </div>
           } @else {
             <p>{{ product.quantity * product.price }}Tk</p>
           }
