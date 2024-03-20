@@ -9,10 +9,14 @@ export class CartService {
   isCartOpened = signal<boolean>(false);
   totalProducts = signal<number>(0);
   totalPrice = signal<number>(0);
+  savedAmount = signal<number>(0);
+  discountedTotalPrice = signal<number>(0);
   products = signal<Product[]>([]);
   cart = computed<Cart>(() => {
     return {
-      totalPrice: this.totalProducts(),
+      totalPrice: this.totalPrice(),
+      discountedPrice: this.discountedTotalPrice(),
+      savedAmount: this.savedAmount(),
       totalProducts: this.totalProducts(),
       products: this.products(),
     };
@@ -25,10 +29,22 @@ export class CartService {
   calculateTotalAmount() {
     this.totalPrice.set(
       this.products().reduce(
-        (total, item) => total + item.price * item.quantity,
+        (current, product) => current + product.price * product.quantity,
         0
       )
     );
+
+    this.discountedTotalPrice.set(
+      this.products().reduce(
+        (current, product) =>
+          product.discountedPrice
+            ? current + product.discountedPrice * product.quantity
+            : current + product.price * product.quantity,
+        0
+      )
+    );
+
+    this.savedAmount.set(this.totalPrice() - this.discountedTotalPrice());
   }
 
   calculateTotalProducts() {
@@ -56,5 +72,17 @@ export class CartService {
   removeItemFromCart(productId: number) {
     this.products.set(this.products().filter((p) => p.id !== productId));
     this.updateCart();
+  }
+
+  incrementQuantity(product: Product) {
+    product.quantity += 1;
+    this.calculateTotalAmount();
+  }
+
+  decrementQuantity(product: Product) {
+    if (product.quantity > 1) {
+      product.quantity -= 1;
+      this.calculateTotalAmount();
+    }
   }
 }

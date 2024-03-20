@@ -83,9 +83,11 @@
     </div>
     <div class="order-summary p-3 mt-3 bg-secondary-subtle">
       <h5 class="h5">Summary</h5>
-      <p class="h6 mt-3">Total price: <span>{{ cartTotal() }} Tk</span></p>
-      <p class="h6 mt-3">Discounted price: <span>{{ discountedTotal() }} Tk</span></p>
-      <p class="h6 mt-3">You save: <span>{{ savedAmount() }} Tk</span></p>
+      <!-- <p class="h6 mt-3">Total price: <span>{{ cartTotal() }} Tk</span></p> -->
+      <p class="h6 mt-3">Total price: <span>{{ cart().totalPrice }} Tk</span></p>
+      <p class="h6 mt-3">Discounted price: <span>{{ cart().discountedPrice }} Tk</span></p>
+      <!-- <p class="h6 mt-3">Discounted price: <span>{{ discountedTotal() }} Tk</span></p> -->
+      <p class="h6 mt-3">You save: <span>{{ cart().savedAmount }} Tk</span></p>
       <div class="text-center">
         <button class="btn btn-warning mt-3" (click)="verifyLoginAndRedirect()">Confirm Checkout</button>
       </div>

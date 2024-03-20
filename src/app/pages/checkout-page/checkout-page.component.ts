@@ -18,67 +18,37 @@ export class CheckoutPageComponent implements OnInit {
   cartService = inject(CartService);
   modalService = inject(BsModalService);
   cart = computed(() => this.cartService.cart());
-  cartTotal = computed(() => 0);
-  discountedTotal = computed(() => 0);
-  savedAmount = computed(() => 0);
 
   ngOnInit(): void {
-    this.calculatePrice();
+    
   }
 
   incrementProductQuantity(product: Product) {
-    product.quantity += 1;
-    const cartProduct = this.cart().products.find(p => p.id === product.id);
-    if(cartProduct) {
-      cartProduct.quantity++;
-    }
+    this.cartService.incrementQuantity(product);
   }
 
   decrementProductQuantity(product: Product) {
-    if (product.quantity > 1) {
-      product.quantity -= 1;
-      const cartProduct = this.cart().products.find(p => p.id === product.id);
-      if(cartProduct && cartProduct.quantity > 1) {
-        cartProduct.quantity--;
-      }
-    }
+    this.cartService.decrementQuantity(product);
   }
 
   removeProduct(productId: number) {
     this.cartService.removeItemFromCart(productId);
   }
 
-  calculatePrice() {
-    this.cartTotal = computed(() => {
-      return this.cart().products.reduce(
-        (current, product) => current + product.price,
-        0
-      );
-    });
-    this.discountedTotal = computed(() => {
-      return this.cart().products.reduce(
-        (current, product) =>
-          product.discountedPrice
-            ? current + product.discountedPrice
-            : current + product.price,
-        0
-      );
-    });
-    this.savedAmount = computed(
-      () => this.cartTotal() - this.discountedTotal()
-    );
-  }
-
   verifyLoginAndRedirect() {
     const isLoggedIn = localStorage.getItem('user');
     if(!isLoggedIn || !Object.keys(JSON.parse(isLoggedIn)).length) {
       console.log("Redirect to login");
-      this.openAuthModal()
+      this.openAuthModal();
     }
   }
 
   openAuthModal() {
+    const initialState = {
+      isLoginTab: false
+    };
     const modalRef = this.modalService.show(LoginSignupModalComponent, {
+      initialState,
       class: 'modal-md modal-dialog-center',
       backdrop: true,
       ignoreBackdropClick: true,

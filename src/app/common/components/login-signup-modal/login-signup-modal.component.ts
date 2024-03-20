@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,16 +15,19 @@ import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-login-signup-modal',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TabsModule],
   templateUrl: './login-signup-modal.component.html',
   styleUrl: './login-signup-modal.component.scss',
 })
-export class LoginSignupModalComponent {
+export class LoginSignupModalComponent implements OnInit, AfterViewInit {
   bsModalRef = inject(BsModalRef);
   userService = inject(AuthService);
   toastrService = inject(ToastrService);
+  @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
+  @Input() isLoginTab = false;
   @Output() saveSuccess: EventEmitter<void> = new EventEmitter();
-  userForm: FormGroup = new FormGroup({});
+  registrationForm: FormGroup = new FormGroup({});
+  loginForm: FormGroup = new FormGroup({});
   ngUnsubscribe$: Subject<void> = new Subject();
 
   ngOnInit(): void {
@@ -31,15 +35,24 @@ export class LoginSignupModalComponent {
   }
 
   createUserForm() {
-    this.userForm = new FormGroup({
+    this.registrationForm = new FormGroup({
       name: new FormControl<string>('', Validators.required),
       email: new FormControl<string>('', [
         Validators.required,
         Validators.email,
       ]),
       password: new FormControl<string>('', Validators.required),
+      confirmPassword: new FormControl<string>('', Validators.required),
       phone: new FormControl<string>(''),
       address: new FormControl<string>(''),
+    });
+
+    this.loginForm = new FormGroup({
+      email: new FormControl<string>('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new FormControl<string>('', Validators.required),
     });
   }
 
@@ -48,7 +61,7 @@ export class LoginSignupModalComponent {
   }
 
   onSubmit() {
-    const userInfo = this.userForm.value;
+    const userInfo = this.registrationForm.value;
     const userToAddOrUpdate: UserInputDto = {
       name: userInfo.name,
       email: userInfo.email,
@@ -69,6 +82,14 @@ export class LoginSignupModalComponent {
           this.toastrService.error('Registration Failed!');
         }
       });
+  }
+
+  ngAfterViewInit(): void {
+    if(!this.isLoginTab) {
+      if (this.staticTabs?.tabs[1]) {
+        this.staticTabs.tabs[1].active = true;
+      }
+    }
   }
 
   ngOnDestroy(): void {
