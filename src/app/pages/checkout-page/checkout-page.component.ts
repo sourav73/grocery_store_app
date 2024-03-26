@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { LoginSignupModalComponent } from '../../common/components/login-signup-modal/login-signup-modal.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-page',
@@ -15,6 +16,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
   styleUrl: './checkout-page.component.scss',
 })
 export class CheckoutPageComponent implements OnInit {
+  router = inject(Router);
   cartService = inject(CartService);
   modalService = inject(BsModalService);
   cart = computed(() => this.cartService.cart());
@@ -38,8 +40,9 @@ export class CheckoutPageComponent implements OnInit {
   verifyLoginAndRedirect() {
     const isLoggedIn = localStorage.getItem('user');
     if(!isLoggedIn || !Object.keys(JSON.parse(isLoggedIn)).length) {
-      console.log("Redirect to login");
       this.openAuthModal();
+    } else {
+      this.router.navigate(['/pages', 'payment']);
     }
   }
 

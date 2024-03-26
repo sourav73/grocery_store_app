@@ -84,6 +84,16 @@ export class LoginSignupModalComponent implements OnInit, AfterViewInit {
       });
   }
 
+  onLogin() {
+    const formData = this.loginForm.value;
+    const user = {
+      email: formData.email
+    };
+
+    localStorage.setItem('user', JSON.stringify(user));
+    this.closeModal();
+  }
+
   ngAfterViewInit(): void {
     if(!this.isLoginTab) {
       if (this.staticTabs?.tabs[1]) {

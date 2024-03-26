@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PagesComponent } from './pages/pages.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+import { MakePaymentComponent } from './pages/make-payment/make-payment.component';
 
 export const routes: Routes = [
   {
@@ -40,11 +41,15 @@ export const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'checkout',
+        component: CheckoutPageComponent
+      },
+      {
+        path: 'payment',
+        component: MakePaymentComponent
+      }
     ],
-  },
-  {
-    path: 'checkout',
-    component: CheckoutPageComponent
   },
   {
     path: '**',

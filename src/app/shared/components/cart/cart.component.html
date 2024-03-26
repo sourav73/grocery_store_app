@@ -82,7 +82,8 @@
   } @else {
   <a
     class="btn btn-primary text-center w-50 d-block mt-4 m-auto"
-    routerLink="/checkout"
+    routerLink="/pages/checkout"
+    (click)="cartService.isCartOpened.set(false)"
     >Checkout</a
   >
   }

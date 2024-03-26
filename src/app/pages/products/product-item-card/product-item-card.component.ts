@@ -32,10 +32,31 @@ export class ProductItemCardComponent implements OnInit {
   addToCart() {
     this.cartService.addItemToCart({...this.product});
     // this.isInCart = true;
+    this.updateLocalStorageCart();
   }
 
   removeFromCart() {
     // this.isInCart = false;
     this.cartService.removeItemFromCart(this.product.id);
+  }
+
+  updateLocalStorageCart() {
+    const cartProducts: Product[] = JSON.parse(localStorage.getItem('cartProducts')!) || [];
+    const existingProduct = cartProducts.find(p => p.id === this.product.id);
+    if(existingProduct) {
+      existingProduct.quantity += this.product.quantity;
+    } else {
+      cartProducts.push(this.product);
+    }
+    localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+  }
+
+  removeFromLocalStorage() {
+    const cartProducts: Product[] = JSON.parse(localStorage.getItem('cartProducts') || '');
+    const existingProductIndex = cartProducts.findIndex(p => p.id === this.product.id);
+    if(existingProductIndex > -1) {
+      cartProducts.splice(existingProductIndex, 1);
+      localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+    }
   }
 }

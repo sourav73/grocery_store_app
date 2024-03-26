@@ -1,15 +1,15 @@
 <header class="bg-primary d-flex align-items-center px-3">
   <nav class="d-flex justify-content-between w-100">
     <div class="brand d-flex gap-3 align-items-center">
-      <p class="text-white fw-bold brand">Grocery Store</p>
+      <a class="text-white fw-bold brand text-decoration-none" routerLink="/">Grocery Store</a>
     </div>
     <div class="button-group">
       <button class="btn cart-btn position-relative" (click)="openCart()">
         <img src="assets/icons/cart.svg" alt="Cart">
         <span class="cart-badge">{{ totalProduct() || 0 }}</span>
       </button>
-      <button class="btn btn-primary">Login</button>
-      <button class="btn btn-success ms-3" (click)="openAuthModal()">Register</button>
+      <button class="btn btn-primary" (click)="openAuthModal()">Login/Register</button>
+      <!-- <button class="btn btn-success ms-3" (click)="openAuthModal()">Register</button> -->
     </div>
   </nav>
 </header>
