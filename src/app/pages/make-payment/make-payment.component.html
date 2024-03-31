@@ -1,8 +1,92 @@
 <div class="container">
-    <h1 class="text-center text-decoration-underline fs-1 my-3">Payment</h1>
-    <div class="d-flex payment-info-container">
-        <div class="billing-info">
-            
+  <h1 class="text-center text-decoration-underline fs-1 mt-3 mb-4">Payment</h1>
+  <div class="d-flex payment-info-container gap-3">
+    <div class="billing-info w-50">
+      <form [formGroup]="billingForm">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Name"
+            formControlName="name"
+          />
         </div>
+        <div class="mb-3">
+          <label class="form-label">Phone No.</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Phone no."
+            formControlName="phone"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Email"
+            formControlName="email"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Delivery Address</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Address"
+            formControlName="deliveryAddress"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label d-block pb-1">Payment type</label>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="paymentType"
+              value="1"
+            />
+            <label class="form-check-label" for="inlineRadio1"
+              >Cash On Delivery</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="paymentType"
+              value="2"
+            />
+            <label class="form-check-label" for="inlineRadio2">Bkash</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Transaction Id</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Transaction"
+            formControlName="transactionId"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="billingForm.invalid"
+        >
+          Make Payment
+        </button>
+      </form>
     </div>
+    <div class="cart-info w-50">
+      <h5 class="h5 mb-3">Cart Info</h5>
+      @for (product of cartService.cart().products; track product.id) {
+      <div class="product-info mb-3 ps-3">
+        <p>{{ product.name }}</p>
+      </div>
+      }
+    </div>
+  </div>
 </div>
