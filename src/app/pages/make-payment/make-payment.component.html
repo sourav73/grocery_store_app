@@ -2,7 +2,7 @@
   <h1 class="text-center text-decoration-underline fs-1 mt-3 mb-4">Payment</h1>
   <div class="d-flex payment-info-container gap-3">
     <div class="billing-info w-50">
-      <form [formGroup]="billingForm">
+      <form [formGroup]="billingForm" (ngSubmit)=" createOrder()">
         <div class="mb-3">
           <label class="form-label">Name</label>
           <input
@@ -32,12 +32,12 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Delivery Address</label>
-          <input
+          <textarea
             type="text"
             class="form-control"
             placeholder="Address"
             formControlName="deliveryAddress"
-          />
+          ></textarea>
         </div>
         <div class="mb-3">
           <label class="form-label d-block pb-1">Payment type</label>
@@ -62,7 +62,7 @@
             <label class="form-check-label" for="inlineRadio2">Bkash</label>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" [ngClass]="isTransactionHidden ? 'd-none' : ''">
           <label class="form-label">Transaction Id</label>
           <input
             type="text"
@@ -81,12 +81,57 @@
       </form>
     </div>
     <div class="cart-info w-50">
-      <h5 class="h5 mb-3">Cart Info</h5>
+      <h5 class="h5 mb-3">Products</h5>
       @for (product of cartService.cart().products; track product.id) {
-      <div class="product-info mb-3 ps-3">
-        <p>{{ product.name }}</p>
+      <div class="product-info card mb-3" style="max-width: 400px">
+        <div class="row g-0">
+          <div class="col-md-3">
+            <img
+              #productImage
+              [src]="product.imagePath"
+              [alt]="product.name"
+              (error)="productImage.src = 'assets/images/no-image.jpg'"
+              width="100"
+            />
+          </div>
+          <div class="col-md-9">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">
+                <small class="text-body-secondary"
+                  >QTY: {{ product.quantity }}</small
+                >
+              </p>
+              <p class="card-text">
+                @if (product.discount) {
+                <small class="text-body-secondary d-block"
+                  >Total: <del>{{ product.price * product.quantity }}</del>
+                  {{ product.discountedPrice * product.quantity }}</small
+                >
+                } @else {
+                <small class="text-body-secondary d-block"
+                  >Total: {{ product.price * product.quantity }}</small
+                >
+                }
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
       }
+      <h5 class="h5 mb-3">Order Summary</h5>
+      <div class="summary-info">
+        <p class="h6 mt-3">
+          Total price: <span>{{ cartService.cart().totalPrice }} Tk</span>
+        </p>
+        <p class="h6 mt-3">
+          Discounted price:
+          <span>{{ cartService.cart().discountedPrice }} Tk</span>
+        </p>
+        <p class="h6 mt-3">
+          You save: <span>{{ cartService.cart().savedAmount }} Tk</span>
+        </p>
+      </div>
     </div>
   </div>
 </div>
