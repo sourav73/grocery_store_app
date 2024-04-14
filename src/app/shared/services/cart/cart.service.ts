@@ -85,4 +85,12 @@ export class CartService {
       this.calculateTotalAmount();
     }
   }
+
+  resetCart() {
+    this.totalProducts.set(0);
+    this.totalPrice.set(0);
+    this.savedAmount.set(0);
+    this.discountedTotalPrice.set(0);
+    this.products.set([]);
+  }
 }
